@@ -122,3 +122,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .text-h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-primary/90 mb-6 text-center;
+  }
+  .text-h2 {
+    @apply text-3xl md:text-4xl font-semibold text-primary/90 text-center mb-4;
+  }
+  .text-h3 {
+    @apply text-xl md:text-2xl font-semibold text-primary/90 mb-2;
+  }
+  .text-h4 {
+    @apply text-lg md:text-xl font-medium text-primary/90 mb-2;
+  }
+}

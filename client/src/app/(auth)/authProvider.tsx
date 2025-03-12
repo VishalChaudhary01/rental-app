@@ -33,11 +33,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
 
   // Redirect authenticated users away from auth pages
   useEffect(() => {
-    if (route === 'signUp' && pathname !== '/signup') {
-      router.replace('/signup');
-    } else if (route === 'signIn' && pathname !== '/signin') {
-      router.replace('/signin');
-    } else if (user && isAuthPage) {
+    if (user && isAuthPage) {
       router.replace('/');
     }
   }, [route, user, pathname, router, isAuthPage]);

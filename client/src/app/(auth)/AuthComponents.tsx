@@ -9,17 +9,24 @@ import {
 import { useRouter } from 'next/navigation';
 
 export const AuthComponents = {
+  Header() {
+    return (
+      <View className='mt-4'>
+        <Heading level={3} className='!text-2xl !font-bold !px-2'>
+          RENTAL <span className=''>APP</span>
+        </Heading>
+      </View>
+    );
+  },
+
   SignIn: {
     Header() {
       return (
-        <Heading level={3} textAlign='center' fontWeight='semibold'>
-          Welcomback, Please sign In!
-        </Heading>
+        <p className='text-muted-foreground mb-4'>Fill the form to Sign In</p>
       );
     },
 
     Footer() {
-      const { toSignUp } = useAuthenticator();
       const router = useRouter();
       return (
         <View className='text-center mt-4'>
@@ -27,8 +34,7 @@ export const AuthComponents = {
             Don&apos;t have an account?{' '}
             <button
               onClick={() => {
-                toSignUp();
-                router.replace('/signup');
+                router.push('/signup');
               }}
               className='text-primary hover:underline bg-transparent border-none p-0'
             >
@@ -42,9 +48,9 @@ export const AuthComponents = {
   SignUp: {
     Header() {
       return (
-        <Heading level={3} textAlign='center' fontWeight='semibold'>
-          Create a new account
-        </Heading>
+        <p className='text-muted-foreground mb-4'>
+          Fill the form to Create new account
+        </p>
       );
     },
 
@@ -68,13 +74,13 @@ export const AuthComponents = {
     },
 
     Footer() {
-      const { toSignIn } = useAuthenticator();
+      const router = useRouter();
       return (
         <View className='text-center mt-4'>
           <p className='text-muted-foreground'>
             Already have an account?{' '}
             <button
-              onClick={toSignIn}
+              onClick={() => router.push('/signin')}
               className='text-primary hover:underline bg-transparent border-none p-0'
             >
               Sign in

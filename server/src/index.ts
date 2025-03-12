@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 
 import { PORT } from './config/env';
-import { errorHandler, ErrorResponse } from './middlewares/errorHandler';
+import { errorMiddleware, ErrorResponse } from './middlewares/error.middleware';
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.all('*', () => {
   throw new ErrorResponse('Resource not found', 404);
 });
 
-app.use(errorHandler);
+app.use(errorMiddleware);
 app.listen(PORT, () =>
   console.log(`server started on http://localhost:${PORT}`)
 );

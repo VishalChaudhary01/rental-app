@@ -10,7 +10,7 @@ export class ErrorResponse extends Error {
   }
 }
 
-export const errorHandler = (
+export const errorMiddleware = (
   err: any,
   req: Request,
   res: Response,

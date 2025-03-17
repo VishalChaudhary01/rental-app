@@ -36,7 +36,7 @@ export const AuthComponents = {
               onClick={() => {
                 router.push('/signup');
               }}
-              className='text-primary hover:underline bg-transparent border-none p-0'
+              className='text-primary hover:underline bg-transparent border-none p-0 cursor-pointer'
             >
               Sign up here
             </button>
@@ -81,7 +81,7 @@ export const AuthComponents = {
             Already have an account?{' '}
             <button
               onClick={() => router.push('/signin')}
-              className='text-primary hover:underline bg-transparent border-none p-0'
+              className='text-primary hover:underline bg-transparent border-none cursor-pointer p-0'
             >
               Sign in
             </button>

@@ -34,7 +34,7 @@ export default function Appbar() {
 
   return (
     <div
-      className={`fixed top-0 left-0 z-50 w-full shadow-md bg-primary/90`}
+      className={`fixed top-0 z-50 w-full lg:max-w-[1380px] mx-auto shadow-md bg-primary/90`}
       style={{ height: `${APPBAR_HEIGHT}px` }}
     >
       <div className='flex items-center justify-between w-full h-full px-6 py-2'>

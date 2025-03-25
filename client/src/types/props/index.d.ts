@@ -8,3 +8,7 @@ declare interface IFeatureCardProps extends IDiscoverCardProps {
   linkText: string;
   linkHref: string;
 }
+
+declare interface IAppSidebarProps {
+  userType: UserType;
+}

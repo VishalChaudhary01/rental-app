@@ -19,10 +19,7 @@ Amplify.configure({
 });
 
 export default function Auth({ children }: { children: React.ReactNode }) {
-  const { user, route } = useAuthenticator((context) => [
-    context.user,
-    context.route,
-  ]);
+  const { user } = useAuthenticator((context) => [context.user]);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -36,7 +33,7 @@ export default function Auth({ children }: { children: React.ReactNode }) {
     if (user && isAuthPage) {
       router.replace('/');
     }
-  }, [route, user, pathname, router, isAuthPage]);
+  }, [user, router, isAuthPage]);
 
   // Allow access to public pages without authentication
   if (!isAuthPage && !isDashboardPage) {

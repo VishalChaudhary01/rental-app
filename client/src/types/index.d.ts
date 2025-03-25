@@ -3,3 +3,5 @@ declare interface User {
   userInfo: Tenant | Manager;
   userRole: JsonObject | JsonPrimitive | JsonArray;
 }
+
+declare type UserType = 'manager' | 'tenant';

@@ -5,6 +5,7 @@ import { Plus, Search } from 'lucide-react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useGetAuthUserQuery } from '@/state/api';
+import { APPBAR_HEIGHT } from '@/lib/config';
 import { Button } from '../ui/button';
 import {
   DropdownMenu,
@@ -15,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { SidebarTrigger } from '../ui/sidebar';
 
 export default function Appbar() {
   const router = useRouter();
@@ -31,8 +33,16 @@ export default function Appbar() {
   }
 
   return (
-    <div className='w-full z-50 shadow-md max-w-[1380px] mx-auto bg-primary/90'>
-      <div className='flex items-center justify-between px-8 py-2'>
+    <div
+      className={`fixed top-0 left-0 z-50 w-full shadow-md bg-primary/90`}
+      style={{ height: `${APPBAR_HEIGHT}px` }}
+    >
+      <div className='flex items-center justify-between w-full h-full px-6 py-2'>
+        {isDashboardPage && (
+          <div className='md:hidden'>
+            <SidebarTrigger className='w-8 h-8 bg-white text-primary/90' />
+          </div>
+        )}
         <Link href={'/'} className='text-lg font-bold text-secondary'>
           Rental-App
         </Link>

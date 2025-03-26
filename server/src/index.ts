@@ -8,6 +8,7 @@ import { errorMiddleware, ErrorResponse } from './middlewares/error.middleware';
 import managerRoutes from './routes/manager.route';
 import tenantRoutes from './routes/tenant.route';
 import propertyRoutes from './routes/property.route';
+import leaseRoutes from './routes/lease.route';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/managers', authMiddleware(['manager']), managerRoutes);
 app.use('/tenants', authMiddleware(['tenant']), tenantRoutes);
 app.use('/properties', propertyRoutes);
+app.use('/lease', leaseRoutes);
 
 app.all('*', () => {
   throw new ErrorResponse('Resource not found', 404);

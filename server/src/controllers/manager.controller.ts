@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
+import { wktToGeoJSON } from '@terraformer/wkt';
 import expressAsyncHandler from 'express-async-handler';
-import { prisma } from '../db';
 import { ErrorResponse } from '../middlewares/error.middleware';
+import { prisma } from '../db';
 
 export const getManager = expressAsyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -41,5 +42,60 @@ export const updateManager = expressAsyncHandler(
       },
     });
     res.status(200).json(updatedManger);
+  }
+);
+
+export const getManagerProperties = expressAsyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const { cognitoId } = req.params;
+
+    const properties = await prisma.property.findMany({
+      where: { managerCognitoId: cognitoId },
+      include: { location: true },
+    });
+
+    const propertiesWithFormattedLocation = await Promise.all(
+      properties.map((property) => {
+        const coordinatesWKT = property.location
+          .coordinates as unknown as string;
+        if (!coordinatesWKT) {
+          return {
+            ...property,
+            location: {
+              ...property.location,
+              coordinates: null,
+            },
+          };
+        }
+
+        try {
+          const geoJSON = wktToGeoJSON(coordinatesWKT) as {
+            type: string;
+            coordinates: [number, number];
+          };
+          return {
+            ...property,
+            location: {
+              ...property.location,
+              coordinates: {
+                longitude: geoJSON.coordinates[0],
+                latitude: geoJSON.coordinates[1],
+              },
+            },
+          };
+        } catch (error) {
+          console.error('Error parsing WKT to GeoJSON:', error);
+          return {
+            ...property,
+            location: {
+              ...property.location,
+              coordinates: null,
+            },
+          };
+        }
+      })
+    );
+
+    res.status(200).json(propertiesWithFormattedLocation);
   }
 );
